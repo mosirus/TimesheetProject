@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState,useEffect} from 'react';
 import {Text, View, StyleSheet, Image, Picker,Alert} from 'react-native';
 import Calendar from '../../../image/calendar.png';
 import clockwhite from '../../../image/clock.png';
@@ -11,7 +11,6 @@ import * as Resources from '../../config/resource';
 
 export default function EditProject({route,navigation}) {
   const [selectedValue, setSelectedValue] = useState(status);
-  const [value, onChangeText] = React.useState();
 
   const {name} = route.params;
   const {clientNames} = route.params;
@@ -24,14 +23,16 @@ export default function EditProject({route,navigation}) {
   const [clientName, setClientName] = useState(clientNames);
   const [contactNumber, setContactNumber] = useState(PO);
   const [workType, setWorkType] = useState(worktype);
+  const [value, setValue] = useState(status);
+  const [active, setActive] = useState(true);
 
   const body = {
     projectName: projectName,
     contract: contactNumber,
-    status: 0,
+    status: value,
     workType: workType,
     ClientName: clientName,
-    Active: true,
+    Active: active,
   };
 
   const editProject = () => {
@@ -107,14 +108,12 @@ export default function EditProject({route,navigation}) {
         <Text style={styles.textSM}>Status</Text>
         <View style={styles.viewPicker}>
           <Picker
-            selectedValue={selectedValue}
+            selectedValue={value}
             mode={'dropdown'}
             style={{fontFamily:'Nunito-Light', marginTop:-5, }}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedValue(itemValue)
-            }>
-            <Picker.Item label="Active" value="Active" />
-            <Picker.Item label="Not Active" value="Not Active" />
+            onValueChange={(itemValue, itemIndex) => setValue(itemValue)}>
+            <Picker.Item label="Active" value={1} />
+            <Picker.Item label="Not Active" value={0} />
           </Picker>
         </View>
       </View>

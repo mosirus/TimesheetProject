@@ -1,5 +1,5 @@
 import React, {Component, useState, useEffect} from 'react';
-import {Text, View, StyleSheet, Image} from 'react-native';
+import {Text, View, StyleSheet, Image, RefreshControl,} from 'react-native';
 import Calendar from '../../../image/calendar.png';
 import clockwhite from '../../../image/clock.png';
 import menuBlack from '../../../image/menu.png';
@@ -10,6 +10,12 @@ import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import Axios from 'axios';
 import * as Resources from '../../config/resource';
 
+const wait = (timeout) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+};
+
 export default function ProjectList({navigation}) {
   const [project, setProject] = useState([
     {name: 'E-Workplace', clientName: 'Surya', PO: '11518029', worktype: 'Opportunity', status: "Active", },
@@ -17,6 +23,13 @@ export default function ProjectList({navigation}) {
     {name: 'E-Workplace3', clientName: 'Martinus', PO: '11518056', worktype: 'Opportunity',status: "Not Active"},
     {name: 'E-Workplace4', clientName: 'Dian', PO: '11517002', worktype: 'Opportunity', status: "Not Active"},
   ]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
 
   const [projectname, setProjectname] = useState([]);
 
@@ -93,6 +106,9 @@ export default function ProjectList({navigation}) {
           height: 200,
         }}>
         <FlatList
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
           data={projectname}
           renderItem={({item}) => (
             <View

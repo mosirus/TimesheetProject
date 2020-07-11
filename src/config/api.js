@@ -4,4 +4,5 @@ module.exports = {
   CREATE_PROJECT: 'Projects',
   DELETE_PROJECT: 'Projects/{id}',
   EDIT_PROJECT: 'Projects/{id}',
+  GET_TASK: 'TaskProject/{id}',
 };

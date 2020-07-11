@@ -18,6 +18,7 @@ export default function AddNewProject({navigation}) {
   const [clientName, setClientName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [workType, setWorkType] = useState('');
+  const [status, setStatus] = useState()
 
   const body = {
     projectName: projectName,
@@ -39,44 +40,44 @@ export default function AddNewProject({navigation}) {
       });
   };
 
-  const addProjects = () => {
-    const Headers = {
-      'accept' : 'application/json',
-      'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicHJvZmlsZSI6eyJmaXJzdG5hbWUiOiJhZG1pbiIsImxhc3RuYW1lIjoiYWRtaW4iLCJnZW5kZXIiOiJNYWxlIiwiZG9iIjoiMjAyMC0wMy0yN1QwMDowMDowMCswMDowMCIsImVtYWlsIjoiYWRtaW5AbW9vbmxheS5jb20ifSwicGVybWlzc2lvbiI6eyJTQURNSU4iOjEsImFwcCI6OTl9LCJpYXQiOjE1OTQxMDMxMTl9.3jkqWMc_WlA7kJ4uxWEGyPoMwpA0Y0qlmdVZYw7mTjc`,
-      'Content-type': 'application/json',
-    };
+  // const addProjects = () => {
+  //   const Headers = {
+  //     'accept' : 'application/json',
+  //     'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicHJvZmlsZSI6eyJmaXJzdG5hbWUiOiJhZG1pbiIsImxhc3RuYW1lIjoiYWRtaW4iLCJnZW5kZXIiOiJNYWxlIiwiZG9iIjoiMjAyMC0wMy0yN1QwMDowMDowMCswMDowMCIsImVtYWlsIjoiYWRtaW5AbW9vbmxheS5jb20ifSwicGVybWlzc2lvbiI6eyJTQURNSU4iOjEsImFwcCI6OTl9LCJpYXQiOjE1OTQxMDMxMTl9.3jkqWMc_WlA7kJ4uxWEGyPoMwpA0Y0qlmdVZYw7mTjc`,
+  //     'Content-type': 'application/json',
+  //   };
 
-    const Data = {
-      projectName: projectName,
-      contract: contactNumber,
-      status: 0,
-      workType: workType,
-      ClientName: clientName,
-      Active: true,
-    };
+  //   const Data = {
+  //     projectName: projectName,
+  //     contract: contactNumber,
+  //     status: 0,
+  //     workType: workType,
+  //     ClientName: clientName,
+  //     Active: true,
+  //   };
 
-    axios({
-      method: 'POST',
-      url: API_URL1,
-      headers: Headers,
-      data: JSON.stringify({
-        projectName: projectName,
-        contract: contactNumber,
-        status: 0,
-        workType: workType,
-        ClientName: clientName,
-        Active: true,
-      }),
-    })
-      .then(data => {
-        console.log(data.data);
-        resetForm();
-        Alert('Add Project Success');
-      })
-      .catch(err => {
-        console.log(JSON.stringify(err));
-      });
-  };
+  //   axios({
+  //     method: 'POST',
+  //     url: API_URL1,
+  //     headers: Headers,
+  //     data: JSON.stringify({
+  //       projectName: projectName,
+  //       contract: contactNumber,
+  //       status: 0,
+  //       workType: workType,
+  //       ClientName: clientName,
+  //       Active: true,
+  //     }),
+  //   })
+  //     .then(data => {
+  //       console.log(data.data);
+  //       resetForm();
+  //       Alert('Add Project Success');
+  //     })
+  //     .catch(err => {
+  //       console.log(JSON.stringify(err));
+  //     });
+  // };
 
   const resetForm = () => {
     setProjectName("");

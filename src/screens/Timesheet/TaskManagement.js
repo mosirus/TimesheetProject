@@ -1,4 +1,4 @@
-import React, {Component, useState} from 'react';
+import React, {Component, useState, useEffect} from 'react';
 import {
   Text,
   View,
@@ -8,10 +8,17 @@ import {
   Platform,
   TouchableOpacity,
   FlatList,
+  RefreshControl,
 } from 'react-native';
+import * as Resources from '../../config/resource';
+
+const wait = (timeout) => {
+  return new Promise(resolve => {
+    setTimeout(resolve, timeout);
+  });
+};
 
 export default function TaskManagement({navigation}) {
-  const [selectedValue, setSelectedValue] = useState();
   const [task, setTask] = useState([
     {
       projectName: 'Joged1-8',
@@ -131,6 +138,50 @@ export default function TaskManagement({navigation}) {
       key: '9',
     },
   ]);
+
+  const [taskname, setTaskname] = useState([]);
+  const [pickerValueHolder, SetPickerValueHolder] = useState([]);
+  const [selectedValue, setSelectedValue] = useState();
+
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+  useEffect(() => {
+    getProjectList();
+    getProjectTask();
+  }, []);
+
+  const getProjectList = () => {
+    Resources.getProjectList()
+      .then((r) => {
+        console.log(r);
+        // setProjectname(r);
+        SetPickerValueHolder(r);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  const getProjectTask = () => {
+    Resources.getTask(selectedValue)
+      .then((r) => {
+        console.log(r);
+        // setProjectname(r);
+        setTaskname(r);
+      })
+      .catch((e) => {
+        console.log(e);
+      });
+  };
+
+  
+
   return (
     <View>
       <View
@@ -144,15 +195,20 @@ export default function TaskManagement({navigation}) {
         <Text style={styles.text}>Project Name :</Text>
         <View style={styles.pickerView}>
           <Picker
+            mode={'dropdown'}
             selectedValue={selectedValue}
             style={{height: 20, width: 230}}
             onValueChange={(itemValue, itemIndex) =>
               setSelectedValue(itemValue)
             }>
-            <Picker.Item label="Joged1-8" projectID="1" />
-            <Picker.Item label="Joged9-16" projectID="2" />
+            {pickerValueHolder.map((item, key) => (
+              <Picker.Item label={item.projectName} value={item.Id} key={key} />
+            ))}
           </Picker>
         </View>
+      </View>
+      <View>
+        <Text>{selectedValue}</Text>
       </View>
       <View style={{alignItems: 'flex-end', margin: 20}}>
         <TouchableOpacity
@@ -184,7 +240,10 @@ export default function TaskManagement({navigation}) {
           height: 350,
         }}>
         <FlatList
-          data={task}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
+          data={taskname}
           renderItem={({item}) => (
             <View
               style={{
@@ -199,7 +258,7 @@ export default function TaskManagement({navigation}) {
                   borderBottomWidth: 1,
                   justifyContent: 'center',
                 }}>
-                <Text style={{marginLeft: 5}}>{item.name}</Text>
+                <Text style={{marginLeft: 5}}>{item.TaskName}</Text>
               </View>
               <View
                 style={{
@@ -219,14 +278,17 @@ export default function TaskManagement({navigation}) {
                     },
                   ]}>
                   <Picker
+                    mode={'dropdown'}
                     text={item.status}
                     selectedValue={selectedValue}
                     style={{height: 20, width: 120, color: '#FFFFFF'}}
                     onValueChange={(itemValue, itemIndex) =>
                       setSelectedValue(itemValue)
                     }>
-                    <Picker.Item label="Joged1-8" projectID="1" />
-                    <Picker.Item label="Joged9-16" projectID="2" />
+                    <Picker.Item label="To Do" value="1" />
+                    <Picker.Item label="In Progress" value="2" />
+                    <Picker.Item label="Done" value="3" />
+                    <Picker.Item label="Not Done" value="4" />
                   </Picker>
                 </View>
               </View>
