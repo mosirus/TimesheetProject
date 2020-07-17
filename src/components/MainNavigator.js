@@ -28,6 +28,7 @@ import TaskManagement from '../screens/Timesheet/TaskManagement';
 import AddTask from '../screens/Timesheet/AddTask';
 import DetailTask from '../screens/Timesheet/DetailTask';
 import EditTask from '../screens/Timesheet/EditTask';
+import TimerTask from '../screens/Timesheet/TimerTask';
 
 
 const Stack = createStackNavigator();
@@ -122,6 +123,7 @@ function MyStack() {
       <Stack.Screen name="AddTask" component={AddTask} options={{headerTitle: 'Add New Task'}}/>
       <Stack.Screen name="DetailTask" component={DetailTask} options={{headerTitle: 'Task Detail'}}/>
       <Stack.Screen name="EditTask" component={EditTask} options={{headerTitle: 'Edit Task Detail'}}/>
+      <Stack.Screen name="TimerTask" component={TimerTask} options={{headerTitle: 'Timer Task'}}/>
     </Stack.Navigator>
   );
 }

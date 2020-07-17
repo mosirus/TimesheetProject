@@ -40,6 +40,7 @@ export default function EditProject({route,navigation}) {
       .then(res => {
         resetForm();
         Alert.alert('Edit Project Success');
+        navigation.navigate('ProjectList');
       })
       .catch(err => {
         console.log(JSON.stringify(err));

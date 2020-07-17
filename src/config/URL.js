@@ -7,5 +7,6 @@ export const Url_GetDataApproval = 'https://eworkmoonlay-absen-dev.azurewebsites
 export const Url_UploadPhoto = 'https://eworkmoonlay-absen-dev.azurewebsites.net/api/BlobStorage/InsertFile'
 export const Url_GetListHD = 'https://eworkmoonlay-user-dev.azurewebsites.net/v1/accounts/by-division-name/'
 
-export const API_URL = 'http://e5be16766ea8.ngrok.io/v1/';
+export const API_URL = 'https://c17e6cc7e9f1.ngrok.io/v1/';
+export const EMPLOYEE_URL = 'https://eworkmoonlay-user-dev.azurewebsites.net/v1/';
 export const API_URL1 = 'http://7b7ce442b692.ngrok.io/v1/Projects';

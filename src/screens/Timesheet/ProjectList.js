@@ -17,12 +17,6 @@ const wait = (timeout) => {
 };
 
 export default function ProjectList({navigation}) {
-  const [project, setProject] = useState([
-    {name: 'E-Workplace', clientName: 'Surya', PO: '11518029', worktype: 'Opportunity', status: "Active", },
-    {name: 'E-Workplace2', clientName: 'Hamonangan', PO: '11518010', worktype: 'Opportunity',status: "Not Active"},
-    {name: 'E-Workplace3', clientName: 'Martinus', PO: '11518056', worktype: 'Opportunity',status: "Not Active"},
-    {name: 'E-Workplace4', clientName: 'Dian', PO: '11517002', worktype: 'Opportunity', status: "Not Active"},
-  ]);
   const [refreshing, setRefreshing] = useState(false);
 
   const onRefresh = React.useCallback(() => {
@@ -47,17 +41,6 @@ export default function ProjectList({navigation}) {
         console.log(e);
       });
   };
-
-  // const getProjectId = () => {
-  //   Resources.getProjectId(7)
-  //     .then((r) => {
-  //       console.log(r);
-  //       setName(r.projectName);
-  //     })
-  //     .catch((e) => {
-  //       console.log(e);
-  //     });
-  // };
 
   return (
     <View style={{flexDirection: 'column'}}>
@@ -103,7 +86,7 @@ export default function ProjectList({navigation}) {
       </View>
       <View
         style={{
-          height: 200,
+          height: 500,
         }}>
         <FlatList
           refreshControl={

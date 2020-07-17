@@ -12,8 +12,8 @@ import axios from 'axios';
 import {API_URL1} from '../../config/URL';
 
 export default function AddNewProject({navigation}) {
-  const [selectedValue, setSelectedValue] = useState('Active');
-
+  
+  const [selectedValue, setSelectedValue] = useState(1);
   const [projectName, setProjectName] = useState('');
   const [clientName, setClientName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
@@ -23,7 +23,7 @@ export default function AddNewProject({navigation}) {
   const body = {
     projectName: projectName,
     contract: contactNumber,
-    status: 0,
+    status: selectedValue,
     workType: workType,
     ClientName: clientName,
     Active: true,
@@ -34,6 +34,7 @@ export default function AddNewProject({navigation}) {
       .then(res => {
         resetForm();
         Alert('Add Project Success');
+        navigation.navigation('ProjectList')
       })
       .catch(err => {
         console.log(JSON.stringify(err));
@@ -147,8 +148,8 @@ export default function AddNewProject({navigation}) {
             onValueChange={(itemValue, itemIndex) =>
               setSelectedValue(itemValue)
             }>
-            <Picker.Item label="Active" value="1" />
-            <Picker.Item label="Not Active" value="0" />
+            <Picker.Item label="Active" value={1} />
+            <Picker.Item label="Not Active" value={2} />
           </Picker>
         </View>
       </View>

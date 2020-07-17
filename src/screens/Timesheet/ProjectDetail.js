@@ -21,13 +21,35 @@ export default function ProjectDetail({route,navigation}) {
   const deleteProject = () => {
     Resources.deleteProject(Id)
         .then((r) => {
-          Alert.alert('Are You Sure to Delet this ?');
+          Alert.alert('Delete Succes');
           console.log(r);
+          navigation.navigate('ProjectList');
         })
         .catch((e) => {
           console.log(e);
         });
   };
+
+  const AlertDelete = () =>
+    Alert.alert(
+      "Delete",
+      "Are You Sure To Delete This ?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancel Pressed"),
+          style: "cancel"
+        },
+        {
+          text: 'OK',
+          onPress: () => {
+            deleteProject();
+          },
+        },
+      ],
+      {cancelable: false},
+    );
+
 
   return (
     <View style={{flexDirection: 'column'}}>
@@ -58,7 +80,7 @@ export default function ProjectDetail({route,navigation}) {
             height: 34,
             backgroundColor: '#DC3545',
             }}>
-            <TouchableOpacity onPress={deleteProject}>
+            <TouchableOpacity onPress={AlertDelete}>
             <Text
                 style={{
                 color: '#FFFFFF',
