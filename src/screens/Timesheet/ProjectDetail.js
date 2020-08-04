@@ -21,6 +21,7 @@ export default function ProjectDetail({route,navigation}) {
   const deleteProject = () => {
     Resources.deleteProject(Id)
         .then((r) => {
+          console.log('Project Berhasil Di Hapus')
           Alert.alert('Delete Succes');
           console.log(r);
           navigation.navigate('ProjectList');
@@ -33,7 +34,7 @@ export default function ProjectDetail({route,navigation}) {
   const AlertDelete = () =>
     Alert.alert(
       "Delete",
-      "Are You Sure To Delete This ?",
+      "Are You Sure To Delete This ? \nNote: Project Must Not Be Available",
       [
         {
           text: "Cancel",

@@ -12,6 +12,7 @@ import {
   RefreshControl,
 } from 'react-native';
 import * as Resources from '../../config/resource';
+import {useIsFocused} from '@react-navigation/native';
 
 export default function TaskManagement({navigation, route}) {
   const [taskname, setTaskname] = useState([]);
@@ -22,10 +23,12 @@ export default function TaskManagement({navigation, route}) {
 
   const [task, setTask] = useState([]);
 
+  const isFocused = useIsFocused();
+
   useEffect(() => {
     getProjectList();
     getProjectTask();
-  }, [getProjectTask, selectedValue]);
+  }, [selectedValue, isFocused]);
 
   const getProjectList = () => {
     Resources.getProjectList()
@@ -44,11 +47,12 @@ export default function TaskManagement({navigation, route}) {
       .then(r => {
         console.log(r);
         // setProjectname(r);
+        console.log('List Task Dapat Ditampilkan');
         setTaskname(r);
-        setTask(r.TaskName);
       })
       .catch(e => {
         console.log(e);
+        getProjectTask();
       });
   });
 
@@ -61,9 +65,10 @@ export default function TaskManagement({navigation, route}) {
     <View>
       <View
         style={{
+          flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginTop: 20,
+          marginTop: 30,
           marginHorizontal: 20,
           alignItems: 'center',
         }}>
@@ -72,16 +77,13 @@ export default function TaskManagement({navigation, route}) {
           <Picker
             mode={'dropdown'}
             selectedValue={selectedValue}
-            style={{height: 20, width: 230}}
+            style={{height: 20, width: 220}}
             onValueChange={(itemValue, itemIndex) => onPickerChange(itemValue)}>
             {pickerValueProject.map((item, key) => (
               <Picker.Item label={item.projectName} value={item.Id} key={key} />
             ))}
           </Picker>
         </View>
-      </View>
-      <View>
-        <Text>{selectedValue}</Text>
       </View>
       <View style={{alignItems: 'flex-end', margin: 20}}>
         <TouchableOpacity
@@ -98,7 +100,7 @@ export default function TaskManagement({navigation, route}) {
             navigation.navigate('AddTask', {projectID: selectedValue})
           }>
           <Text style={{fontSize: 14, fontWeight: 'bold', color: '#FFFFFF'}}>
-            Add New Task {projectid}
+            Add New Task
           </Text>
         </TouchableOpacity>
       </View>
@@ -112,31 +114,35 @@ export default function TaskManagement({navigation, route}) {
       </View>
       <View
         style={{
-          height: 350,
+          height: 500,
         }}>
         <FlatList
           data={taskname}
+          keyExtractor={item => item.TaskId}
           // data={task}
           renderItem={({item}) => (
             <View
               style={{
+                flex: 1,
                 marginHorizontal: 20,
                 marginVertical: 2,
                 height: 25,
                 flexDirection: 'row',
+                justifyContent: 'space-between',
+                borderBottomWidth: 1,
               }}>
               <View
                 style={{
                   width: 150,
-                  borderBottomWidth: 1,
                   justifyContent: 'center',
                 }}>
-                <Text style={{marginLeft: 5}}>{item.TaskName}</Text>
+                <Text style={{marginLeft: 5, marginBottom: 2}}>
+                  {item.TaskName}
+                </Text>
               </View>
               <View
                 style={{
                   width: 150,
-                  borderBottomWidth: 1,
                   justifyContent: 'center',
                 }}>
                 <View
@@ -145,9 +151,9 @@ export default function TaskManagement({navigation, route}) {
                     {
                       width: 110,
                       height: 23,
-                      marginLeft: 1,
                       backgroundColor: '#6289AF',
                       borderRadius: 10,
+                      marginLeft: -15,
                     },
                   ]}>
                   {/* <Picker
@@ -177,35 +183,41 @@ export default function TaskManagement({navigation, route}) {
                   )}
                 </View>
               </View>
-              <TouchableOpacity
+              <View
                 style={{
-                  marginLeft: 1,
-                  width: 50,
-                  borderWidth: 0.5,
+                  width: 55,
+                  height: 25,
                   justifyContent: 'center',
                   alignItems: 'center',
                   backgroundColor: '#1A446E',
-                }}
-                onPress={() =>
-                  navigation.navigate('DetailTask', {
-                    TaskId: item.TaskId,
-                    TaskName: item.TaskName,
-                    EmployeeName: item.EmployeeName,
-                    TaskDifficulty: item.TaskDifficulty,
-                    TaskPriority: item.TaskPriority,
-                    TaskStatus: item.TaskStatus,
-                    ManHour: item.ManHour,
-                    StartDate: item.StartDate,
-                    EndDate: item.EndDate,
-                    TaskDescription: item.TaskDescription,
-                    projectID: selectedValue,
-                  })
-                }>
-                <Text
-                  style={{fontSize: 14, fontWeight: 'bold', color: '#FFFFFF'}}>
-                  Detail
-                </Text>
-              </TouchableOpacity>
+                }}>
+                <TouchableOpacity
+                  onPress={() =>
+                    navigation.navigate('DetailTask', {
+                      TaskId: item.TaskId,
+                      TaskName: item.TaskName,
+                      EmployeeId: item.EmployeeId,
+                      EmployeeName: item.EmployeeName,
+                      TaskDifficulty: item.TaskDifficulty,
+                      TaskPriority: item.TaskPriority,
+                      TaskStatus: item.TaskStatus,
+                      ManHour: item.ManHour,
+                      StartDate: item.StartDate,
+                      EndDate: item.EndDate,
+                      TaskDescription: item.TaskDescription,
+                      projectID: selectedValue,
+                    })
+                  }>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      fontWeight: 'bold',
+                      color: '#FFFFFF',
+                    }}>
+                    Detail
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
           )}
         />

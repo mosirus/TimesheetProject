@@ -8,6 +8,7 @@ import Task from '../screens/Timesheet/Task';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ManagementSM from '../screens/Timesheet/ManagementSM';
 import Searchable from '../screens/Timesheet/searchable';
+import TaskManagement from '../screens/Timesheet/TaskManagement';
 
 const Tab = createBottomTabNavigator();
 
@@ -33,7 +34,7 @@ export default function BottomNavBar() {
             <Icon name="home-outline" color={color} size={25} />
           ),
         }}/>
-      <Tab.Screen name="Task" component={ManagementSM} options={{
+      <Tab.Screen name="Task" component={Task} options={{
           tabBarLabel: 'Task',
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="clipboard" color={color} size={20} />

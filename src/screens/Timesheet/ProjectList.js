@@ -9,32 +9,22 @@ import PlayItem from '../../../image/playButton.png';
 import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import Axios from 'axios';
 import * as Resources from '../../config/resource';
-
-const wait = (timeout) => {
-  return new Promise(resolve => {
-    setTimeout(resolve, timeout);
-  });
-};
+import {useIsFocused} from '@react-navigation/native';
 
 export default function ProjectList({navigation}) {
-  const [refreshing, setRefreshing] = useState(false);
-
-  const onRefresh = React.useCallback(() => {
-    setRefreshing(true);
-
-    wait(2000).then(() => setRefreshing(false));
-  }, []);
-
+  const isFocused = useIsFocused();
   const [projectname, setProjectname] = useState([]);
 
   useEffect(() => {
     getProjectList();
-  }, []);
+  }, [isFocused]);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const getProjectList = () => {
     Resources.getProjectList()
       .then((r) => {
         console.log(r);
+        console.log('Data Project List Dapat Ditampilkan')
         setProjectname(r);
       })
       .catch((e) => {
@@ -89,9 +79,6 @@ export default function ProjectList({navigation}) {
           height: 500,
         }}>
         <FlatList
-          refreshControl={
-            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-          }
           data={projectname}
           renderItem={({item}) => (
             <View

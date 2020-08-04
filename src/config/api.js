@@ -9,6 +9,10 @@ module.exports = {
   EDIT_TASK: 'Task/{id}',
   DELETE_TASK: 'Task/{id}',
   GET_EMPLOYEE: 'accounts?page=1&size=25&order=%7B%7D&filter=%7B%7D',
+  GET_EMPLOYEE_ID: 'accounts/{id}',
   TASK_DONE : 'TimeSheet',
   GET_TASK_TIMESHEET: 'TimeSheet/Project/{id}',
+  SUBMIT_REPORT: 'Reports',
+  GET_TASK_USER: 'TaskProject/{projID}/{empId}',
+  GET_TASK_TIMESHEET_EMP: 'TimeSheet/Project/{projectid}/{empid}',
 };

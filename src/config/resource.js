@@ -1,11 +1,13 @@
 import {create} from 'apisauce';
 import AsyncStorage from '@react-native-community/async-storage';
 import {API_URL} from '../config/URL';
+import {Url_GetDataUser} from '../config/URL';
 import {EMPLOYEE_URL} from '../config/URL';
 import * as API from '../config/api';
 // import AuthManager from '../../lib/AuthManager'
 
 const api = create({baseURL: API_URL});
+const me = create({baseURL: Url_GetDataUser});
 const employee = create({baseURL: EMPLOYEE_URL});
 
 export const getProjectList = () => {
@@ -30,7 +32,7 @@ export const getProjectList = () => {
   });
 };
 
-export const getProjectId = (id) => {
+export const getProjectId = id => {
   return new Promise(async (resolve, reject) => {
     const token = await AsyncStorage.getItem('TOKEN');
 
@@ -52,7 +54,7 @@ export const getProjectId = (id) => {
   });
 };
 
-export const createProject = (body) => {
+export const createProject = body => {
   return new Promise(async (resolve, reject) => {
     const token = await AsyncStorage.getItem('TOKEN');
 
@@ -78,7 +80,7 @@ export const createProject = (body) => {
   });
 };
 
-export const deleteProject = (id) => {
+export const deleteProject = id => {
   return new Promise(async (resolve, reject) => {
     const token = await AsyncStorage.getItem('TOKEN');
 
@@ -126,7 +128,7 @@ export const editProject = (body, id) => {
   });
 };
 
-export const getTask = (ProjectId) => {
+export const getTask = ProjectId => {
   return new Promise(async (resolve, reject) => {
     const token = await AsyncStorage.getItem('TOKEN');
 
@@ -148,7 +150,7 @@ export const getTask = (ProjectId) => {
   });
 };
 
-export const createTask = (body) => {
+export const createTask = body => {
   return new Promise(async (resolve, reject) => {
     const token = await AsyncStorage.getItem('TOKEN');
 
@@ -198,7 +200,7 @@ export const editTask = (body, TaskId) => {
   });
 };
 
-export const deleteTask = (TaskId) => {
+export const deleteTask = TaskId => {
   return new Promise(async (resolve, reject) => {
     const token = await AsyncStorage.getItem('TOKEN');
 
@@ -246,7 +248,31 @@ export const getEmployee = () => {
   });
 };
 
-export const taskDone = (body) => {
+export const getEmployeeId = employeeId => {
+  return new Promise(async (resolve, reject) => {
+    const token = await AsyncStorage.getItem('TOKEN');
+
+    // api.setHeader('Authorization', `Bearer ${token}`);
+    employee.setHeader(
+      'Authorization',
+      `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicHJvZmlsZSI6eyJmaXJzdG5hbWUiOiJhZG1pbiIsImxhc3RuYW1lIjoiYWRtaW4iLCJnZW5kZXIiOiJNYWxlIiwiZG9iIjoiMjAyMC0wMy0yN1QwMDowMDowMCswMDowMCIsImVtYWlsIjoiYWRtaW5AbW9vbmxheS5jb20ifSwicGVybWlzc2lvbiI6eyJTQURNSU4iOjEsImFwcCI6OTl9LCJpYXQiOjE1OTQxMDMxMTl9.3jkqWMc_WlA7kJ4uxWEGyPoMwpA0Y0qlmdVZYw7mTjc`,
+      'Content-Type',
+      'application/json',
+    );
+
+    employee
+      .get(API.GET_EMPLOYEE_ID.replace(/{(id)}/, employeeId))
+      .then(response => {
+        if (response.ok) resolve(response.data);
+        else reject(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const taskDone = body => {
   return new Promise(async (resolve, reject) => {
     const token = await AsyncStorage.getItem('TOKEN');
 
@@ -290,6 +316,111 @@ export const getTaskTimesheet = ProjectId => {
         } else {
           reject(response);
         }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getTaskUser = (ProjectId, EmployeeId) => {
+  return new Promise(async (resolve, reject) => {
+    const token = await AsyncStorage.getItem('TOKEN');
+
+    // api.setHeader('Authorization', `Bearer ${token}`);
+    api.setHeader(
+      'Authorization',
+      `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicHJvZmlsZSI6eyJmaXJzdG5hbWUiOiJhZG1pbiIsImxhc3RuYW1lIjoiYWRtaW4iLCJnZW5kZXIiOiJNYWxlIiwiZG9iIjoiMjAyMC0wMy0yN1QwMDowMDowMCswMDowMCIsImVtYWlsIjoiYWRtaW5AbW9vbmxheS5jb20ifSwicGVybWlzc2lvbiI6eyJTQURNSU4iOjEsImFwcCI6OTl9LCJpYXQiOjE1OTQxMDMxMTl9.3jkqWMc_WlA7kJ4uxWEGyPoMwpA0Y0qlmdVZYw7mTjc`,
+    );
+
+    api
+      .get(
+        API.GET_TASK_USER.replace(/{(projID)}/, ProjectId).replace(
+          /{(empId)}/,
+          EmployeeId,
+        ),
+      )
+      .then(response => {
+        if (response.ok) resolve(response.data);
+        else reject(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getTaskTimesheetbyemp = (ProjectId, empId) => {
+  return new Promise(async (resolve, reject) => {
+    const token = await AsyncStorage.getItem('TOKEN');
+
+    // api.setHeader('Authorization', `Bearer ${token}`);
+    api.setHeader(
+      'Authorization',
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicHJvZmlsZSI6eyJmaXJzdG5hbWUiOiJhZG1pbiIsImxhc3RuYW1lIjoiYWRtaW4iLCJnZW5kZXIiOiJNYWxlIiwiZG9iIjoiMjAyMC0wMy0yN1QwMDowMDowMCswMDowMCIsImVtYWlsIjoiYWRtaW5AbW9vbmxheS5jb20ifSwicGVybWlzc2lvbiI6eyJTQURNSU4iOjEsImFwcCI6OTl9LCJpYXQiOjE1OTQxMDMxMTl9.3jkqWMc_WlA7kJ4uxWEGyPoMwpA0Y0qlmdVZYw7mTjc',
+    );
+
+    api
+      .get(
+        API.GET_TASK_TIMESHEET_EMP.replace(/{(projectid)}/, ProjectId).replace(
+          /{(empid)}/,
+          empId,
+        ),
+      )
+      .then(response => {
+        if (response.ok) {
+          resolve(response.data);
+        } else {
+          reject(response);
+        }
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const submitReport = (projectId, timesheetId) => {
+  return new Promise(async (resolve, reject) => {
+    const token = await AsyncStorage.getItem('TOKEN');
+
+    // api.setHeader('Authorization', `Bearer ${token}`);
+    api.setHeader(
+      'Authorization',
+      `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicHJvZmlsZSI6eyJmaXJzdG5hbWUiOiJhZG1pbiIsImxhc3RuYW1lIjoiYWRtaW4iLCJnZW5kZXIiOiJNYWxlIiwiZG9iIjoiMjAyMC0wMy0yN1QwMDowMDowMCswMDowMCIsImVtYWlsIjoiYWRtaW5AbW9vbmxheS5jb20ifSwicGVybWlzc2lvbiI6eyJTQURNSU4iOjEsImFwcCI6OTl9LCJpYXQiOjE1OTQxMDMxMTl9.3jkqWMc_WlA7kJ4uxWEGyPoMwpA0Y0qlmdVZYw7mTjc`,
+      'Content-Type',
+      'application/json',
+    );
+
+    api
+      .post(API.SUBMIT_REPORT, {
+        ProjectId: projectId,
+        TimesheetId: timesheetId,
+      })
+      .then(response => {
+        if (response.ok) resolve(response);
+        else reject(response);
+      })
+      .catch(error => {
+        reject(error);
+      });
+  });
+};
+
+export const getDataUser = () => {
+  return new Promise(async (resolve, reject) => {
+    const token = await AsyncStorage.getItem('TOKEN');
+
+    // api.setHeader('Authorization', `Bearer ${token}`);
+    me.setHeader(
+      'Authorization',
+      `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwicHJvZmlsZSI6eyJmaXJzdG5hbWUiOiJhZG1pbiIsImxhc3RuYW1lIjoiYWRtaW4iLCJnZW5kZXIiOiJNYWxlIiwiZG9iIjoiMjAyMC0wMy0yN1QwMDowMDowMCswMDowMCIsImVtYWlsIjoiYWRtaW5AbW9vbmxheS5jb20ifSwicGVybWlzc2lvbiI6eyJTQURNSU4iOjEsImFwcCI6OTl9LCJpYXQiOjE1OTQxMDMxMTl9.3jkqWMc_WlA7kJ4uxWEGyPoMwpA0Y0qlmdVZYw7mTjc`,
+    );
+
+    me.get()
+      .then(response => {
+        if (response.ok) resolve(response.data);
+        else reject(response);
       })
       .catch(error => {
         reject(error);

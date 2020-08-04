@@ -1,7 +1,7 @@
 /*This is an Example of Searchable Dropdown*/
 import React, { Component } from 'react';
 //import react in our project
-import { View, Text } from 'react-native';
+import { View, Text, Button } from 'react-native';
 //import basic react native components
 import SearchableDropdown from 'react-native-searchable-dropdown';
 //import SearchableDropdown component
@@ -135,6 +135,9 @@ export default class App extends Component {
           underlineColorAndroid="transparent"
           //To remove the underline from the android input
         />
+        <View>
+          <Button></Button>
+        </View>
       </View>
     );
   }

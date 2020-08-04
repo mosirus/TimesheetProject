@@ -6,6 +6,7 @@ import Profile from '../screens/Profile'
 import Leave from '../screens/Leave'
 import Task from '../screens/Task'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ManagementSM from '../screens/Timesheet/ManagementSM';
 
 
 
@@ -34,7 +35,7 @@ export default function BottomNavBar() {
             <Icon name="home-outline" color={color} size={25} />
           ),
         }}/>
-      <Tab.Screen name="Task" component={Task} options={{
+      <Tab.Screen name="Task" component={ManagementSM} options={{
           tabBarLabel: 'Task',
           tabBarIcon: ({ color }) => (
             <FontAwesome5 name="clipboard" color={color} size={20} />

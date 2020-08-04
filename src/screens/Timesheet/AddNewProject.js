@@ -1,5 +1,13 @@
 import React, {Component, useState} from 'react';
-import {Text, View, StyleSheet, Image, Picker,Alert} from 'react-native';
+import {
+  Text,
+  View,
+  StyleSheet,
+  Image,
+  Picker,
+  Alert,
+  ScrollView,
+} from 'react-native';
 import Calendar from '../../../image/calendar.png';
 import clockwhite from '../../../image/clock.png';
 import menuBlack from '../../../image/menu.png';
@@ -10,15 +18,15 @@ import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 import * as Resources from '../../config/resource';
 import axios from 'axios';
 import {API_URL1} from '../../config/URL';
+import ProjectList from './ProjectList';
 
 export default function AddNewProject({navigation}) {
-  
   const [selectedValue, setSelectedValue] = useState(1);
   const [projectName, setProjectName] = useState('');
   const [clientName, setClientName] = useState('');
   const [contactNumber, setContactNumber] = useState('');
   const [workType, setWorkType] = useState('');
-  const [status, setStatus] = useState()
+  const [status, setStatus] = useState();
 
   const body = {
     projectName: projectName,
@@ -30,15 +38,26 @@ export default function AddNewProject({navigation}) {
   };
 
   const addProject = () => {
-    Resources.createProject(body)
-      .then(res => {
-        resetForm();
-        Alert('Add Project Success');
-        navigation.navigation('ProjectList')
-      })
-      .catch(err => {
-        console.log(JSON.stringify(err));
-      });
+    if (
+      projectName === '' ||
+      contactNumber === '' ||
+      selectedValue === null ||
+      workType === '' ||
+      clientName === ''
+    ) {
+      Alert.alert('All form must be filled!');
+    } else {
+      Resources.createProject(body)
+        .then(res => {
+          resetForm();
+          console.log('Project Berhasil Ditambahkan');
+          Alert.alert('Add Project Success');
+          navigation.navigate('ProjectList');
+        })
+        .catch(err => {
+          console.log(JSON.stringify(err));
+        });
+    }
   };
 
   // const addProjects = () => {
@@ -88,95 +107,103 @@ export default function AddNewProject({navigation}) {
   };
 
   return (
-    <View style={{flexDirection: 'column'}}>
-      <View
-        style={{
-          flex:1,
-          height: 34,
-          marginTop: 10,
-          alignSelf: 'flex-start',
-          marginRight: 21,
-          marginHorizontal: 20,
-        }}>
-        <Text style={{fontSize: 18, fontFamily: 'Nunito-SemiBold', textAlign: 'center', paddingTop: 3,}}>
-          Please Fill This Forms
-        </Text>
-      </View>
-      <View style={{marginTop:16, marginHorizontal:20,}}>
-        <Text style={styles.textSM}>Project Name</Text>
-        <TextInput
-          style={styles.inputText}
-          maxLength={40}
-          value={projectName}
-          onChangeText={(projectName) => setProjectName(projectName)}
-        />
-      </View>
-      <View style={{marginHorizontal:20,}}>
-        <Text style={styles.textSM}>Client Name</Text>
-        <TextInput
-          style={styles.inputText}
-          maxLength={40}
-          value={clientName}
-          onChangeText={clientName => setClientName(clientName)}
-        />
-      </View>
-      <View style={{marginHorizontal:20,}}>
-        <Text style={styles.textSM}>PO/Contact Number</Text>
-        <TextInput
-          style={styles.inputText}
-          maxLength={40}
-          value={contactNumber}
-          onChangeText={contactNumber => setContactNumber(contactNumber)}
-        />
-      </View>
-      <View style={{marginHorizontal:20,}}>
-        <Text style={styles.textSM}>Work Type</Text>
-        <TextInput
-          style={styles.inputText}
-          maxLength={40}
-          value={workType}
-          onChangeText={workType => setWorkType(workType)}
-        />
-      </View>
-      <View style={{marginHorizontal:20,}}>
-        <Text style={styles.textSM}>Status</Text>
-        <View style={styles.viewPicker}>
-          <Picker
-            selectedValue={selectedValue}
-            mode={'dropdown'}
-            style={{fontFamily:'Nunito-Light', marginTop:-5, }}
-            onValueChange={(itemValue, itemIndex) =>
-              setSelectedValue(itemValue)
-            }>
-            <Picker.Item label="Active" value={1} />
-            <Picker.Item label="Not Active" value={2} />
-          </Picker>
-        </View>
-      </View>
-      <TouchableOpacity
-        style={{
-          marginTop: 80,
-          width: 325,
-          height: 40,
-          borderWidth: 0.5,
-          backgroundColor: '#1A446D',
-          alignSelf: 'center',
-          justifyContent: 'center', 
-          alignItems: 'center',
-          borderRadius:5,
-        }}
-        onPress={addProject}>
-        <Text
+    <ScrollView>
+      <View style={{flexDirection: 'column'}}>
+        <View
           style={{
-            fontSize: 18,
-            fontWeight: 'bold',
-            color: '#FFFFFF',
-            fontFamily: 'Nunito-SemiBold',
+            flex: 1,
+            height: 34,
+            marginTop: 10,
+            alignSelf: 'flex-start',
+            marginRight: 21,
+            marginHorizontal: 20,
           }}>
-          A D D
-        </Text>
-      </TouchableOpacity>
-    </View>
+          <Text
+            style={{
+              fontSize: 18,
+              fontFamily: 'Nunito-SemiBold',
+              textAlign: 'center',
+              paddingTop: 3,
+            }}>
+            Please Fill This Forms
+          </Text>
+        </View>
+        <View style={{marginTop: 16, marginHorizontal: 20}}>
+          <Text style={styles.textSM}>Project Name</Text>
+          <TextInput
+            style={styles.inputText}
+            maxLength={40}
+            value={projectName}
+            onChangeText={projectName => setProjectName(projectName)}
+          />
+        </View>
+        <View style={{marginHorizontal: 20}}>
+          <Text style={styles.textSM}>Client Name</Text>
+          <TextInput
+            style={styles.inputText}
+            maxLength={40}
+            value={clientName}
+            onChangeText={clientName => setClientName(clientName)}
+          />
+        </View>
+        <View style={{marginHorizontal: 20}}>
+          <Text style={styles.textSM}>PO/Contact Number</Text>
+          <TextInput
+            style={styles.inputText}
+            maxLength={40}
+            value={contactNumber}
+            onChangeText={contactNumber => setContactNumber(contactNumber)}
+          />
+        </View>
+        <View style={{marginHorizontal: 20}}>
+          <Text style={styles.textSM}>Work Type</Text>
+          <TextInput
+            style={styles.inputText}
+            maxLength={40}
+            value={workType}
+            onChangeText={workType => setWorkType(workType)}
+          />
+        </View>
+        <View style={{marginHorizontal: 20}}>
+          <Text style={styles.textSM}>Status</Text>
+          <View style={styles.viewPicker}>
+            <Picker
+              selectedValue={selectedValue}
+              mode={'dropdown'}
+              style={{fontFamily: 'Nunito-Light', marginTop: -5}}
+              onValueChange={(itemValue, itemIndex) =>
+                setSelectedValue(itemValue)
+              }>
+              <Picker.Item label="Active" value={1} />
+              <Picker.Item label="Not Active" value={2} />
+            </Picker>
+          </View>
+        </View>
+        <TouchableOpacity
+          style={{
+            marginTop: 80,
+            width: 325,
+            height: 40,
+            borderWidth: 0.5,
+            backgroundColor: '#1A446D',
+            alignSelf: 'center',
+            justifyContent: 'center',
+            alignItems: 'center',
+            borderRadius: 5,
+          }}
+          onPress={addProject}>
+          <Text
+            style={{
+              fontSize: 18,
+              fontWeight: 'bold',
+              color: '#FFFFFF',
+              fontFamily: 'Nunito-SemiBold',
+            }}>
+            A D D
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
   );
 }
 
@@ -188,11 +215,26 @@ const styles = StyleSheet.create({
     fontWeight: '300',
     fontFamily: 'Nunito-Light',
   },
-  inputText:{
-    textAlignVertical: 'top', borderWidth: 1, borderRadius:5, width:'100%', height:40, backgroundColor:'white', fontSize:18, fontFamily:'Nunito', paddingLeft:2, paddingRight:10,
-    borderColor:'#505050', fontFamily:'Nunito-Regular', 
+  inputText: {
+    textAlignVertical: 'top',
+    borderWidth: 1,
+    borderRadius: 5,
+    width: '100%',
+    height: 40,
+    backgroundColor: 'white',
+    fontSize: 18,
+    fontFamily: 'Nunito',
+    paddingLeft: 2,
+    paddingRight: 10,
+    borderColor: '#505050',
+    fontFamily: 'Nunito-Regular',
   },
-  viewPicker:{
-    width:'40%', height:40, borderRadius:5, borderColor:'#505050', borderWidth:1, backgroundColor:'white'
+  viewPicker: {
+    width: '40%',
+    height: 40,
+    borderRadius: 5,
+    borderColor: '#505050',
+    borderWidth: 1,
+    backgroundColor: 'white',
   },
-})
+});

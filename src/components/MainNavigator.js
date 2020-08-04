@@ -29,6 +29,9 @@ import AddTask from '../screens/Timesheet/AddTask';
 import DetailTask from '../screens/Timesheet/DetailTask';
 import EditTask from '../screens/Timesheet/EditTask';
 import TimerTask from '../screens/Timesheet/TimerTask';
+import Task from '../screens/Timesheet/Task';
+import PopupTimer from '../screens/Timesheet/PopupTimer';
+
 
 
 const Stack = createStackNavigator();
@@ -117,13 +120,15 @@ function MyStack() {
       <Stack.Screen name="Report" component={Report} options={{headerTitle:'Report',}}/>   
       <Stack.Screen name="ProjectList" component={ProjectList} options={{headerTitle:'Project List',}}/>     
       <Stack.Screen name="AddNewProject" component={AddNewProject} options={{headerTitle:'Add New Project',}}/>
-      <Stack.Screen name="ProjectDetail" component={ProjectDetail} options={{headerTitle:'ProjectDetail',}}/>
-      <Stack.Screen name="EditProject" component={EditProject} options={{headerTitle:'EditProject',}}/>
+      <Stack.Screen name="ProjectDetail" component={ProjectDetail} options={{headerTitle:'Project Detail',}}/>
+      <Stack.Screen name="EditProject" component={EditProject} options={{headerTitle:'Edit Project',}}/>
       <Stack.Screen name="TaskManagement" component={TaskManagement} options={{headerTitle: 'Task Management'}}/>
       <Stack.Screen name="AddTask" component={AddTask} options={{headerTitle: 'Add New Task'}}/>
       <Stack.Screen name="DetailTask" component={DetailTask} options={{headerTitle: 'Task Detail'}}/>
       <Stack.Screen name="EditTask" component={EditTask} options={{headerTitle: 'Edit Task Detail'}}/>
       <Stack.Screen name="TimerTask" component={TimerTask} options={{headerTitle: 'Timer Task'}}/>
+      <Stack.Screen name="Task" component={Task}/>
+      <Stack.Screen name="PopupTimer" component={PopupTimer} options={{headerTitle: null, headerTransparent: {position: 'absolute'}}}/>
     </Stack.Navigator>
   );
 }

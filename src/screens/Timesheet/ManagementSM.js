@@ -1,29 +1,100 @@
-import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Image} from 'react-native'
-import { Card } from 'react-native-elements'
-import Calendar from '../../../image/calendar.png'
-import ProjectList from '../../../image/ProjectList.png'
+import React, {useState} from 'react';
+import {
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+  Image,
+  Button,
+} from 'react-native';
+import {Card} from 'react-native-elements';
+import Calendar from '../../../image/calendar.png';
+import ProjectList from '../../../image/ProjectList.png';
+import ReportIcon  from '../../../image/ReportIcon.png';
+import moment from 'moment';
 
 export default function ManagementSM({navigation}) {
+  // const [timeStart, setTimeStart] = useState('');
+  // const [timeEnd, setTimeEnd] = useState('');
+  // const [hourStart, setHourStart] = useState('');
+  // const [minuteStart, setMinuteStart] = useState('');
+  // const [secondStart, setSecondStart] = useState('');
+  // const [secondstartTotal, setSecondstartTotal] = useState('');
+
+  // const secondTotal = () => {
+  //   var hms = timeStart;
+  //   var a = hms.split(':');
+
+  //   var seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+
+  //   setSecondstartTotal(seconds);
+  // }
+
+  // const clockStart = () => {
+  //   // const hour = moment().format('hh:mm:ss');
+  //   const hour = moment().format('hh');
+  //   const minutes = moment().format('mm');
+  //   const second = moment().format('ss');
+  //   setHourStart(hour);
+  //   setMinuteStart(minutes);
+  //   setSecondStart(second);
+  //   const timeStart = hourStart + ':' + minuteStart + ':' + secondStart;
+  //   setTimeStart(timeStart);
+  //   const hms = timeStart;
+  //   const a = hms.split(':');
+
+  //   const seconds = +a[0] * 60 * 60 + +a[1] * 60 + +a[2];
+
+  //   setSecondstartTotal(seconds);
+  // }
+  // const clockEnd = () => {
+  //   const end = moment().format('hh:mm:ss');
+  //   setTimeEnd(end);
+  // }
   return (
-    <View style={styles.container}>
-      <View style={{flex: 1, marginLeft: 25}}>
-        <Text style={styles.text2}>Management Scrum Master</Text>
-      </View>
-      <View style={{flex: 15, flexDirection: 'row', alignSelf: 'center'}}>
+    <View>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', marginTop:40}}>
         <Card containerStyle={styles.card}>
-          <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate('ProjectList')}>
-            <Image source={Calendar} style={{width:70, height: 70}} /> 
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => navigation.navigate('ProjectList')}>
+            <Image source={Calendar} style={{width: 70, height: 70}} />
             <Text style={styles.text}>Project List</Text>
           </TouchableOpacity>
         </Card>
         <Card containerStyle={styles.card}>
-          <TouchableOpacity style={styles.Button} onPress={() => navigation.navigate('TaskManagement')}>
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => navigation.navigate('TaskManagement')}>
             <Image source={ProjectList} style={{width: 70, height: 70}} />
             <Text style={styles.text}>Task Management</Text>
           </TouchableOpacity>
         </Card>
       </View>
+      <View style={{flex:1 ,flexDirection: 'row', alignItems: 'flex-start',}}>
+      <Card containerStyle={styles.card}>
+          <TouchableOpacity
+            style={styles.Button}
+            onPress={() => navigation.navigate('Report')}>
+            <Image source={ReportIcon} style={{width: 70, height: 70}} />
+            <Text style={[styles.text, {marginRight: 15}]}>Report</Text>
+          </TouchableOpacity>
+        </Card>
+      </View>
+      {/* <View>
+        <Button 
+          title='ClockStart'
+          color="#f194ff"
+          onPress={clockStart}
+        />
+        <Button 
+          title='ClockEnd'
+          color="#f194ff"
+          onPress={clockEnd}
+        />
+        <Text style={{marginTop:20, marginBottom: 20}}>TimeStart : {timeStart}, {secondstartTotal}</Text>
+        <Text style={{marginTop:20, marginBottom: 20}}>TimeEnd : {timeEnd}</Text>
+      </View> */}
     </View>
   );
 }

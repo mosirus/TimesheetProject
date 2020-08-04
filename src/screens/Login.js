@@ -104,6 +104,8 @@ if((username != null && username != "" ) && ( password != null && password != ""
     }).then((response) => { 
       console.log('Success: Load data user') 
       const permission = response.data.data.permission.app;
+      console.log(response.data.data.permission.app);
+      console.log(response.data.data.username);
 
       this.setState({
         fullname: response.data.data.profile.firstname + ' ' + response.data.data.profile.lastname,

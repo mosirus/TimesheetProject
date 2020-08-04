@@ -28,6 +28,7 @@ export default function DetailTask({route, navigation}) {
 
   const {TaskId} = route.params;
   const {TaskName} = route.params;
+  const {EmployeeId} = route.params;
   const {EmployeeName} = route.params;
   const {TaskDifficulty} = route.params;
   const {TaskPriority} = route.params;
@@ -53,7 +54,7 @@ export default function DetailTask({route, navigation}) {
   const AlertDelete = () =>
     Alert.alert(
       "Delete",
-      "Are You Sure To Delete This ? \nNote: Project Must Not Be Available",
+      "Are You Sure To Delete This ? \nNote: Task Must Not Be Available",
       [
         {
           text: "Cancel",
@@ -70,8 +71,8 @@ export default function DetailTask({route, navigation}) {
       {cancelable: false},
     );
 
-  const start = moment(StartDate).format('MM/DD/YYYY');
-  const end = moment(EndDate).format('MM/DD/YYYY');
+  const start = moment(StartDate).format('DD/MM/YYYY');
+  const end = moment(EndDate).format('DD/MM/YYYY');
   return (
     <View style={{margin: 20, marginTop: 75}}>
       <View
@@ -105,6 +106,7 @@ export default function DetailTask({route, navigation}) {
               // key: key,
               TaskId: TaskId,
               TaskName: TaskName,
+              EmployeeId: EmployeeId,
               EmployeeName: EmployeeName,
               TaskDifficulty: TaskDifficulty,
               TaskPriority: TaskPriority,
@@ -139,71 +141,123 @@ export default function DetailTask({route, navigation}) {
       <View>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Task Name</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Task Name
+            </Text>
           </View>
-          <Text style={[styles.Text, {fontSize: 18}]}>
-            : {TaskName}, {projectID}
+          <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+            : {TaskName}
           </Text>
         </View>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Assignee</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Assignee
+            </Text>
           </View>
-        <Text style={[styles.Text, {fontSize: 18}]}>: {EmployeeName}</Text>
+          <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+            : {EmployeeName}
+          </Text>
         </View>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Difficulty</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Difficulty
+            </Text>
           </View>
-        <Text style={[styles.Text, {fontSize: 18}]}>: {TaskDifficulty}</Text>
+          <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+            : {TaskDifficulty}
+          </Text>
         </View>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Task Priority</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Task Priority
+            </Text>
           </View>
-          <Text style={[styles.Text, {fontSize: 18}]}>: {TaskPriority}</Text>
+          <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+            : {TaskPriority}
+          </Text>
         </View>
-        <View style={{flexDirection: 'row', marginBottom: 10}}>
+        {/* <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Task Status</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Task Status
+            </Text>
           </View>
-          {TaskStatus === 1 &&(
-            <Text style={[styles.Text, {fontSize: 18}]}>: To Do</Text>
+          {TaskStatus === 1 && (
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              : To Do
+            </Text>
           )}
           {TaskStatus === 2 && (
-            <Text style={[styles.Text, {fontSize: 18}]}>: In Progress</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              : In Progress
+            </Text>
           )}
           {TaskStatus === 3 && (
-            <Text style={[styles.Text, {fontSize: 18}]}>: Done</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              : Done
+            </Text>
           )}
           {TaskStatus === 4 && (
-            <Text style={[styles.Text, {fontSize: 18}]}>: Not Done</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              : Not Done
+            </Text>
           )}
-        </View>
+        </View> */}
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Start Date</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Start Date
+            </Text>
           </View>
-          <Text style={[styles.Text, {fontSize: 18}]}>: {start}</Text>
+          <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+            : {start}
+          </Text>
         </View>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>End Date</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              End Date
+            </Text>
           </View>
-          <Text style={[styles.Text, {fontSize: 18}]}>: {end}</Text>
+          <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+            : {end}
+          </Text>
         </View>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Estimation Time</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Estimation Time
+            </Text>
           </View>
-          <Text style={[styles.Text, {fontSize: 18}]}>: {ManHour}</Text>
+          <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+            : {ManHour}
+          </Text>
         </View>
         <View style={{flexDirection: 'row', marginBottom: 10}}>
           <View style={{width: 150}}>
-            <Text style={[styles.Text, {fontSize: 18}]}>Task Description</Text>
+            <Text style={{fontFamily: 'Nunito-Light', fontSize: 15}}>
+              {' '}
+              Task Description
+            </Text>
           </View>
           <Text
-            style={[styles.Text, {width: 200, fontSize: 18, flexWrap: 'wrap'}]}>
+            style={{
+              fontFamily: 'Nunito-Light',
+              fontSize: 15,
+              width: 200,
+              flexWrap: 'wrap',
+            }}>
             : {TaskDescription}
           </Text>
         </View>
