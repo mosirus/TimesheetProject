@@ -129,7 +129,7 @@ export default function AddNewProject({navigation}) {
           </Text>
         </View>
         <View style={{marginTop: 16, marginHorizontal: 20}}>
-          <Text style={styles.textSM}>Project Name</Text>
+          <Text style={styles.textSM}>Project Name *</Text>
           <TextInput
             style={styles.inputText}
             maxLength={40}
@@ -138,7 +138,7 @@ export default function AddNewProject({navigation}) {
           />
         </View>
         <View style={{marginHorizontal: 20}}>
-          <Text style={styles.textSM}>Client Name</Text>
+          <Text style={styles.textSM}>Client Name *</Text>
           <TextInput
             style={styles.inputText}
             maxLength={40}
@@ -147,7 +147,7 @@ export default function AddNewProject({navigation}) {
           />
         </View>
         <View style={{marginHorizontal: 20}}>
-          <Text style={styles.textSM}>PO/Contact Number</Text>
+          <Text style={styles.textSM}>PO/Contact Number *</Text>
           <TextInput
             style={styles.inputText}
             maxLength={40}
@@ -156,7 +156,7 @@ export default function AddNewProject({navigation}) {
           />
         </View>
         <View style={{marginHorizontal: 20}}>
-          <Text style={styles.textSM}>Work Type</Text>
+          <Text style={styles.textSM}>Work Type *</Text>
           <TextInput
             style={styles.inputText}
             maxLength={40}
@@ -165,7 +165,7 @@ export default function AddNewProject({navigation}) {
           />
         </View>
         <View style={{marginHorizontal: 20}}>
-          <Text style={styles.textSM}>Status</Text>
+          <Text style={styles.textSM}>Status *</Text>
           <View style={styles.viewPicker}>
             <Picker
               selectedValue={selectedValue}

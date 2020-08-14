@@ -183,9 +183,7 @@ export default function AddTask({navigation, route}) {
           </Text>
         </View>
         <View style={{marginLeft: 20, marginBottom: 10}}>
-          <Text style={[styles.text, {fontSize: 16}]}>
-            Task Name
-          </Text>
+          <Text style={[styles.text, {fontSize: 16}]}>Task Name *</Text>
           <TextInput
             placeholder="Input Task Name"
             style={styles.textInput}
@@ -194,7 +192,7 @@ export default function AddTask({navigation, route}) {
           />
         </View>
         <View style={{marginLeft: 20, marginBottom: 10}}>
-          <Text style={[styles.text, {fontSize: 16}]}>Assignee</Text>
+          <Text style={[styles.text, {fontSize: 16}]}>Assignee *</Text>
           {/* <TextInput
           placeholder="Input Assignee Name"
           style={styles.textInput}
@@ -222,7 +220,7 @@ export default function AddTask({navigation, route}) {
         </View>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
           <View style={{marginLeft: 20, marginVertical: 10}}>
-            <Text style={[styles.text, {fontSize: 16}]}>Difficulty</Text>
+            <Text style={[styles.text, {fontSize: 16}]}>Difficulty *</Text>
             <View style={styles.pickerView}>
               <Picker
                 mode={'dropdown'}
@@ -241,7 +239,7 @@ export default function AddTask({navigation, route}) {
                 styles.text,
                 {fontSize: 16, marginVertical: 20, marginBottom: 1},
               ]}>
-              Start Date
+              Start Date *
             </Text>
             <View style={styles.datePicker}>
               <View style={{justifyContent: 'center', margin: 5}}>
@@ -265,7 +263,7 @@ export default function AddTask({navigation, route}) {
             </View>
           </View>
           <View style={{marginRight: 20, marginVertical: 10}}>
-            <Text style={[styles.text, {fontSize: 16}]}>Task Priority</Text>
+            <Text style={[styles.text, {fontSize: 16}]}>Task Priority *</Text>
             <View style={[styles.pickerView, {width: 90}]}>
               <Picker
                 selectedValue={priority}
@@ -285,7 +283,7 @@ export default function AddTask({navigation, route}) {
                 styles.text,
                 {fontSize: 16, marginVertical: 20, marginBottom: 1},
               ]}>
-              End Date
+              End Date *
             </Text>
             <View style={styles.datePicker}>
               <View style={{justifyContent: 'center', margin: 5}}>
@@ -333,7 +331,7 @@ export default function AddTask({navigation, route}) {
             </View>
           </View> */}
           <View style={{marginVertical: 5}}>
-            <Text style={[styles.text, {fontSize: 16}]}>Estimation Time</Text>
+            <Text style={[styles.text, {fontSize: 16}]}>Estimation Time *</Text>
             <View style={styles.textInputEsti}>
               <TextInput
                 placeholder="Estimation"
@@ -344,7 +342,7 @@ export default function AddTask({navigation, route}) {
           </View>
         </View>
         <View style={{marginLeft: 20, marginTop: 15}}>
-          <Text style={[styles.text, {fontSize: 16}]}>Task Description</Text>
+          <Text style={[styles.text, {fontSize: 16}]}>Task Description *</Text>
           <TextInput
             placeholder="Input Task Description"
             style={[styles.textInput, {height: 150}]}

@@ -153,7 +153,7 @@ export default function TaskManagement({navigation, route}) {
                       height: 23,
                       backgroundColor: '#6289AF',
                       borderRadius: 10,
-                      marginLeft: -15,
+                      marginLeft: -25,
                     },
                   ]}>
                   {/* <Picker

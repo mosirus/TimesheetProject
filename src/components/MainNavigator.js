@@ -17,7 +17,6 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import BottomNavBar from './BottomNavBar'
 import BottomNavBarHD from './BottomNavBarHD'
 import Eworkplace3 from '../../image/eworkplace3.svg'
-import Timer from '../screens/Timesheet/Timer';
 import HistoryTask from '../screens/Timesheet/HistoryTask';
 import Report from '../screens/Timesheet/Report';
 import ProjectList from '../screens/Timesheet/ProjectList';
@@ -28,7 +27,6 @@ import TaskManagement from '../screens/Timesheet/TaskManagement';
 import AddTask from '../screens/Timesheet/AddTask';
 import DetailTask from '../screens/Timesheet/DetailTask';
 import EditTask from '../screens/Timesheet/EditTask';
-import TimerTask from '../screens/Timesheet/TimerTask';
 import Task from '../screens/Timesheet/Task';
 import PopupTimer from '../screens/Timesheet/PopupTimer';
 
@@ -115,7 +113,6 @@ function MyStack() {
       <Stack.Screen name="OverworkForm" component={OverworkForm} options={{headerTitle:'Overwork Form'}}/> 
       <Stack.Screen name="Meetings" component={Meetings} options={{headerTitle:'Meetings',}}/>
       <Stack.Screen name="TaskDone" component={TaskDone} options={{headerTitle:'Task Done',}}/>  
-      <Stack.Screen name="Timers" component={Timer} options={{headerTitle:'Timer',}}/>
       <Stack.Screen name="HistoryTask" component={HistoryTask} options={{headerTitle:'History Task',}}/>
       <Stack.Screen name="Report" component={Report} options={{headerTitle:'Report',}}/>   
       <Stack.Screen name="ProjectList" component={ProjectList} options={{headerTitle:'Project List',}}/>     
@@ -126,7 +123,6 @@ function MyStack() {
       <Stack.Screen name="AddTask" component={AddTask} options={{headerTitle: 'Add New Task'}}/>
       <Stack.Screen name="DetailTask" component={DetailTask} options={{headerTitle: 'Task Detail'}}/>
       <Stack.Screen name="EditTask" component={EditTask} options={{headerTitle: 'Edit Task Detail'}}/>
-      <Stack.Screen name="TimerTask" component={TimerTask} options={{headerTitle: 'Timer Task'}}/>
       <Stack.Screen name="Task" component={Task}/>
       <Stack.Screen name="PopupTimer" component={PopupTimer} options={{headerTitle: null, headerTransparent: {position: 'absolute'}}}/>
     </Stack.Navigator>
